@@ -53,8 +53,13 @@ defmodule GbfRaidBot.Bot do
   end
 
   defp handle_private_message("/show_target_bosses") do
-    Repo.list_up_target_bosses
-    |> Enum.each(&Nadia.send_message(@admin_id, &1))
+    case Repo.list_up_target_bosses do
+      [] ->
+        Nadia.send_message(@admin_id, "None!")
+      target_bosses when is_list(target_bosses) ->
+        Enum.each(target_bosses, &Nadia.send_message(@admin_id, &1))
+      _ -> nil
+    end
   end
 
   defp handle_private_message(text) do
