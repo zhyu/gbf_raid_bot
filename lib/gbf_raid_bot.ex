@@ -10,7 +10,8 @@ defmodule GbfRaidBot do
     children = [
       supervisor(Task.Supervisor, [[name: @task_supervisor_name]]),
       worker(Redix, [[], [name: :redix]]),
-      worker(Task, [@task_name, :process_raids, []])
+      worker(Task, [@task_name, :process_raids, []], id: :process_raids),
+      worker(Task, [@task_name, :pull_updates, []], id: :pull_updates)
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one, name: GbfRaidBot.Supervisor)
