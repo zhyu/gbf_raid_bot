@@ -115,7 +115,7 @@ defmodule GbfRaidBot.RaidTest do
 
     assert raid == %{message: "", battle_id: "ABCD1234", url: "",
                      boss_name: "Lv75 セレスト・マグナ スマホRPGは今これをやってるよ。今の推しキャラはこちら！　ゲーム内プロフィール→　https://t.co/5Xgohi9wlE https://t.co/Xlu7lqQ3km"}
-    assert !Raid.valid_raid?(raid)
+    refute Raid.valid_raid?(raid)
   end
 
   test "parse and check another daily fresh tweet" do
@@ -128,6 +128,6 @@ defmodule GbfRaidBot.RaidTest do
     assert raid == %{message: "", battle_id: "ABCD1234",
                      boss_name: "Lv75 セレスト・マグナ",
                      url: "スマホRPGは今これをやってるよ。今の推しキャラはこちら！　ゲーム内プロフィール→　https://t.co/5Xgohi9wlE https://t.co/Xlu7lqQ3km"}
-    assert !Raid.valid_raid?(raid)
+    refute Raid.valid_raid?(raid)
   end
 end
