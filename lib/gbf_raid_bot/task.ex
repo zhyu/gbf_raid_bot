@@ -1,5 +1,6 @@
 defmodule GbfRaidBot.Task do
   alias GbfRaidBot.Raid
+  alias GbfRaidBot.Repo
 
   def process_raids do
     stream = Raid.build_raid_stream()
@@ -7,7 +8,7 @@ defmodule GbfRaidBot.Task do
     |> Stream.filter(&Raid.valid_raid?/1)
 
     for raid <- stream do
-      IO.puts "#{raid.message} #{raid.boss_name}\n#{raid.battle_id}"
+      Repo.store_boss_name(raid.boss_name)
     end
   end
 end

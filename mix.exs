@@ -17,7 +17,7 @@ defmodule GbfRaidBot.Mixfile do
     # Specify extra applications you'll use from Erlang/Elixir
     [
       mod: {GbfRaidBot, []},
-      extra_applications: [:logger, :extwitter]]
+      extra_applications: [:logger, :extwitter, :redix]]
   end
 
   # Dependencies can be Hex packages:
@@ -31,7 +31,8 @@ defmodule GbfRaidBot.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:extwitter, "~> 0.8.3"}
+      {:extwitter, "~> 0.8.3"},
+      {:redix, "~> 0.6.0"}
     ]
   end
 end

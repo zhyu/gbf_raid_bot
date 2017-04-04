@@ -9,6 +9,7 @@ defmodule GbfRaidBot do
 
     children = [
       supervisor(Task.Supervisor, [[name: @task_supervisor_name]]),
+      worker(Redix, [[], [name: :redix]]),
       worker(Task, [@task_name, :process_raids, []])
     ]
 
