@@ -6,7 +6,8 @@ defmodule GbfRaidBot.Bot do
   @admin_id Application.get_env(:gbf_raid_bot, :admin_id)
 
   def handle_message(%Message{chat: %Chat{type: "private", id: @admin_id}, text: text}) do
-    handle_private_message(text)
+    handle_private_message text
+    Repo.record_last_command! text
   end
 
   def handle_message(_), do: true
@@ -32,22 +33,22 @@ defmodule GbfRaidBot.Bot do
   end
 
   defp handle_private_message("/remove_all_boss_names") do
-    Repo.remove_all_boss_names!()
+    Repo.remove_all_boss_names!
     send_done_message()
   end
 
-  defp handle_private_message("/add_target_boss " <> boss_name) do
-    Repo.add_target_boss! boss_name
-    send_done_message()
+  defp handle_private_message("/add_target_boss") do
+    Repo.start_adding_target_boss!
+    Nadia.send_message(@admin_id, "please send target boss name:")
   end
 
-  defp handle_private_message("/remove_target_boss " <> boss_name) do
-    Repo.remove_target_boss! boss_name
-    send_done_message()
+  defp handle_private_message("/remove_target_boss") do
+    Repo.start_removing_target_boss!
+    Nadia.send_message(@admin_id, "please send target boss name:")
   end
 
   defp handle_private_message("/remove_all_target_bosses") do
-    Repo.remove_all_target_bosses!()
+    Repo.remove_all_target_bosses!
     send_done_message()
   end
 
@@ -56,7 +57,19 @@ defmodule GbfRaidBot.Bot do
     |> Enum.each(&Nadia.send_message(@admin_id, &1))
   end
 
-  defp handle_private_message(_), do: true
+  defp handle_private_message(text) do
+    cond do
+      Repo.adding_target_boss? and Repo.get_last_command == "/add_target_boss" ->
+        Repo.add_target_boss! text
+        Repo.end_adding_target_boss!
+        send_done_message()
+      Repo.removing_target_boss? and Repo.get_last_command == "/remove_target_boss" ->
+        Repo.remove_target_boss! text
+        Repo.end_removing_target_boss!
+        send_done_message()
+      true -> nil
+    end
+  end
 
   defp send_done_message, do: Nadia.send_message(@admin_id, "Done!")
 end

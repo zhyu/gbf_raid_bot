@@ -47,4 +47,31 @@ defmodule GbfRaidBot.RepoTest do
     Repo.turn_off_notification!
     refute Repo.send_notification?
   end
+
+  test "adding target boss" do
+    refute Repo.adding_target_boss?
+
+    Repo.start_adding_target_boss!
+    assert Repo.adding_target_boss?
+
+    Repo.end_adding_target_boss!
+    refute Repo.adding_target_boss?
+  end
+
+  test "removing target boss" do
+    refute Repo.removing_target_boss?
+
+    Repo.start_removing_target_boss!
+    assert Repo.removing_target_boss?
+
+    Repo.end_removing_target_boss!
+    refute Repo.removing_target_boss?
+  end
+
+  test "last command" do
+    refute Repo.get_last_command
+
+    Repo.record_last_command! "/add_target_boss"
+    assert Repo.get_last_command == "/add_target_boss"
+  end
 end
