@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+        <script type="text/javascript">
+        function generateButton() {
+          var query = window.location.search.substring(1);
+          var battle_id = query.split("&").filter(function(q){return q.substring(0,10)==='battle_id='}).map(function(q){return q.split("=")[1]});
+          document.getElementById("copy_btn").setAttribute("data-clipboard-text", battle_id);
+          new Clipboard('.btn');
+        }
+        window.onload = generateButton;
+        </script>
+    </head>
+    <body>
+      <button id="copy_btn" class="btn" data-clipboard-text="placeholder" onclick="location.href='gbf-jp-12016007://';">
+        Copy!
+      </button>
+    </body>
+</html>
