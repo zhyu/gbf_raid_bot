@@ -4,6 +4,7 @@ defmodule GbfRaidBot.Bot do
   alias GbfRaidBot.Repo
 
   @admin_id Application.get_env(:gbf_raid_bot, :admin_id)
+  @helper_link Application.get_env(:gbf_raid_bot, :helper_link)
 
   def handle_message(%Message{chat: %Chat{type: "private", id: @admin_id}, text: text}) do
     handle_private_message text
@@ -15,6 +16,7 @@ defmodule GbfRaidBot.Bot do
   def send_raid_message(%{message: message, battle_id: battle_id, boss_name: boss_name}) do
     Nadia.send_message(@admin_id, boss_name <> "\n" <> message)
     Nadia.send_message(@admin_id, battle_id)
+    Nadia.send_message(@admin_id, @helper_link <> "?battle_id=#{battle_id}")
   end
 
   defp handle_private_message("/turn_on_notification") do
