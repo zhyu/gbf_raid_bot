@@ -11,10 +11,11 @@
           }
           .btn {
             width: 100%;
-            height: 100%;
+            height: 50%;
             color: #fff!important;
             background-color: #337BA8!important;
             display:block;
+            font-size: 96px;
           }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
@@ -29,8 +30,11 @@
         </script>
     </head>
     <body>
+      <button id="copy_btn" class="btn" data-clipboard-text="placeholder" onclick="location.href='http://gbf.game.mbga.jp/#quest/assist';">
+        Open web page!
+      </button>
       <button id="copy_btn" class="btn" data-clipboard-text="placeholder" onclick="location.href='gbf-jp-12016007://';">
-        Copy!
+        Go to app!
       </button>
     </body>
 </html>
