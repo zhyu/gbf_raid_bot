@@ -23,17 +23,17 @@
         function generateButton() {
           var query = window.location.search.substring(1);
           var battle_id = query.split("&").filter(function(q){return q.substring(0,10)==='battle_id='}).map(function(q){return q.split("=")[1]});
-          document.getElementById("copy_btn").setAttribute("data-clipboard-text", battle_id);
+          document.getElementsByName('copy_btn').forEach(function(btn){btn.setAttribute("data-clipboard-text", battle_id)});
           new Clipboard('.btn');
         }
         window.onload = generateButton;
         </script>
     </head>
     <body>
-      <button id="copy_btn" class="btn" data-clipboard-text="placeholder" onclick="location.href='http://gbf.game.mbga.jp/#quest/assist';">
+      <button name="copy_btn" class="btn" data-clipboard-text="placeholder" onclick="location.href='http://gbf.game.mbga.jp/#quest/assist';">
         Open web page!
       </button>
-      <button id="copy_btn" class="btn" data-clipboard-text="placeholder" onclick="location.href='gbf-jp-12016007://';">
+      <button name="copy_btn" class="btn" data-clipboard-text="placeholder" onclick="location.href='gbf-jp-12016007://';">
         Go to app!
       </button>
     </body>
