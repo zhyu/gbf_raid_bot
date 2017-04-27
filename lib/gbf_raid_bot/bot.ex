@@ -39,12 +39,12 @@ defmodule GbfRaidBot.Bot do
 
   defp handle_private_message("/add_target_boss") do
     Repo.start_adding_target_boss!
-    Nadia.send_message(@admin_id, "please send target boss name:")
+    Nadia.send_message(@admin_id, "please send target boss name:\n#{@helper_link}boss_name_select.html")
   end
 
   defp handle_private_message("/remove_target_boss") do
     Repo.start_removing_target_boss!
-    Nadia.send_message(@admin_id, "please send target boss name:")
+    Nadia.send_message(@admin_id, "please send target boss name:\n#{@helper_link}boss_name_select.html")
   end
 
   defp handle_private_message("/remove_all_target_bosses") do
