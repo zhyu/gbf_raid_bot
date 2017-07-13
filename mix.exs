@@ -34,7 +34,8 @@ defmodule GbfRaidBot.Mixfile do
       {:extwitter, "~> 0.8.3"},
       {:redix, "~> 0.6.0"},
       {:nadia, "~> 0.4.2"},
-      {:poison, "~> 3.0", override: true}
+      {:poison, "~> 3.0", override: true},
+      {:logger_file_backend, "~> 0.0.10"}
     ]
   end
 end

@@ -29,4 +29,18 @@ use Mix.Config
 #
 #     import_config "#{Mix.env}.exs"
 
+config :logger,
+  backends: [{LoggerFileBackend, :info},
+             {LoggerFileBackend, :error}],
+  handle_otp_reports: true,
+  handle_sasl_reports: true
+
+config :logger, :info,
+  path: "/var/log/gbf_raid_bot_info.log",
+  level: :info
+
+config :logger, :error,
+  path: "/var/log/gbf_raid_bot_error.log",
+  level: :error
+
 import_config "secret.exs"
