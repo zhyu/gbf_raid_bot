@@ -4,6 +4,8 @@ defmodule GbfRaidBot.Task do
   alias GbfRaidBot.Dispatcher
   alias GbfRaidBot.Bot
 
+  require Logger
+
   def process_raids do
     stream = Raid.build_raid_stream()
     |> Stream.map(&Raid.parse_raid_tweet/1)
@@ -28,5 +30,10 @@ defmodule GbfRaidBot.Task do
         :timer.sleep(500)
         pull_updates(offset)
     end
+  rescue
+    exception in Poison.SyntaxError ->
+      Logger.error "#{exception}"
+      :timer.sleep(3000)
+      pull_updates(offset)
   end
 end
