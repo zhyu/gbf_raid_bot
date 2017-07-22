@@ -14,7 +14,13 @@ defmodule GbfRaidBot.Bot do
   def handle_message(_), do: true
 
   def send_raid_message(%{message: message, battle_id: battle_id, boss_name: boss_name}) do
+    Repo.send_sample!
     Nadia.send_message(@admin_id, "#{boss_name}\n#{message}\n#{@helper_link}?battle_id=#{battle_id}")
+  end
+
+  defp handle_private_message("/sample") do
+    Repo.sample!
+    send_done_message()
   end
 
   defp handle_private_message("/turn_on_notification") do

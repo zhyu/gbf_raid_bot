@@ -36,18 +36,26 @@ defmodule GbfRaidBot.Repo do
     Redix.command(:redix, ~w(DEL target_boss))
   end
 
+  def sample! do
+    Redix.command(:redix, ~w(SET sample_count 3))
+  end
+
+  def send_sample! do
+    Redix.command(:redix, ~w(DECR sample_count))
+  end
+
   def turn_on_notification! do
     Redix.command(:redix, ~w(SET notification on))
   end
 
   def turn_off_notification! do
-    Redix.command(:redix, ~w(SET notification off))
+    Redix.command(:redix, ~w(MSET notification off sample_count 0))
   end
 
   def send_notification? do
-    case Redix.command(:redix, ~w(GET notification)) do
-      {:ok, "on"} -> true
-      _ -> false
+    case Redix.command(:redix, ~w(MGET notification sample_count)) do
+      {:ok, ["off", "0"]} -> false
+      _ -> true
     end
   end
 
