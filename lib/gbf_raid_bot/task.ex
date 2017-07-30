@@ -32,7 +32,7 @@ defmodule GbfRaidBot.Task do
     end
   rescue
     exception in Poison.SyntaxError ->
-      Logger.error "#{exception}"
+      Logger.error "#{exception.message}"
       :timer.sleep(3000)
       pull_updates(offset)
   end
