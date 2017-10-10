@@ -4,8 +4,8 @@ defmodule GbfRaidBot.Raid do
 
   @gbf_source ~s(<a href="http://granbluefantasy.jp/" rel="nofollow">グランブルー ファンタジー</a>)
 
-  @raid_regex_en ~r/((?s).*)I need backup!Battle ID: ([A-Z0-9]{8})\n(.+)\n?(.*)/
-  @raid_regex_jp ~r/((?s).*)参加者募集！参戦ID：([A-Z0-9]{8})\n(.+)\n?(.*)/
+  @raid_regex_en ~r/((?s).*)([A-Z0-9]{8}) :Battle ID\nI need backup!\n(.+)\n?(.*)/
+  @raid_regex_jp ~r/((?s).*)([A-Z0-9]{8}) :参戦ID\n参加者募集！\n(.+)\n?(.*)/
 
   def build_raid_stream do
     ExTwitter.stream_filter(track: build_raid_query())
